@@ -25,11 +25,11 @@ void bitonic(double* points, int N) {
     for (l=2; l<N; ++l) {
         double *path_vals = allocate_doubles(l-1);
         for (i=2; i<l+1; ++i) {
-            double tempnorm = norm(points[2*l],     points[2*l+1],
-                                   points[2*(i-2)] ,points[2*(i-2)+1]);
+            double tempnorm = norm(points[2*l], points[2*l+1],
+                                   points[2*(i-2)], points[2*(i-2)+1]);
             double pathlength = 0.0;
             for (k=i; k<l; ++k) {
-                pathlength += norm(points[2*k],     points[2*k+1],
+                pathlength += norm(points[2*k], points[2*k+1],
                                    points[2*(k-1)], points[2*(k-1)+1]);
             }
             path_vals[i-2] = tempnorm + minlengths[i-1] + pathlength;
@@ -71,7 +71,6 @@ void bitonic(double* points, int N) {
                partial_path_edges[2*k+1]);
     }
 
-    deallocate_doubles(points);
     deallocate_doubles(minlengths);
     deallocate_ints(partial_path_edges);
     deallocate_ints(partial_path_delim);

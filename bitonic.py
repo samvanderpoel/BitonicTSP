@@ -5,6 +5,8 @@ import numpy.ctypeslib as ctl
 import os
 
 def get_bitonic_edges(coords, k):
+    n = len(coords)
+    coords = [[x,y] for x, y in coords]
     os.system("python bitonic.py --coords \"" \
               + str(coords) + "\" > res" + str(k) + ".txt")
     lines = open("res" + str(k) + ".txt", "r").readlines()
@@ -12,7 +14,7 @@ def get_bitonic_edges(coords, k):
     edges = [(int(x), int(y))
              for x, y in [line.strip().split('\t')
              for line in lines]]
-    return edges
+    return edges + [(n-1, n-2)]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
