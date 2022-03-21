@@ -13,8 +13,12 @@ void bitonic(double* points, int N) {
     
     double *minlengths = allocate_doubles(N);
     minlengths[0] = 0.0;
-    minlengths[1] = norm(points[0], points[1],
-                         points[2], points[3]);
+    minlengths[1] = norm(
+        points[0],
+        points[1],
+        points[2],
+        points[3]
+    );
     int *partial_path_edges = allocate_ints(2*N*N);
     partial_path_edges[0] = 1;
     partial_path_edges[1] = 0;
@@ -25,12 +29,20 @@ void bitonic(double* points, int N) {
     for (l=2; l<N; ++l) {
         double *path_vals = allocate_doubles(l-1);
         for (i=2; i<l+1; ++i) {
-            double tempnorm = norm(points[2*l], points[2*l+1],
-                                   points[2*(i-2)], points[2*(i-2)+1]);
+            double tempnorm = norm(
+                points[2*l],
+                points[2*l+1],
+                points[2*(i-2)],
+                points[2*(i-2)+1]
+            );
             double pathlength = 0.0;
             for (k=i; k<l; ++k) {
-                pathlength += norm(points[2*k], points[2*k+1],
-                                   points[2*(k-1)], points[2*(k-1)+1]);
+                pathlength += norm(
+                    points[2*k],
+                    points[2*k+1],
+                    points[2*(k-1)],
+                    points[2*(k-1)+1]
+                );
             }
             path_vals[i-2] = tempnorm + minlengths[i-1] + pathlength;
         }
@@ -66,9 +78,11 @@ void bitonic(double* points, int N) {
     for (k=partial_path_delim[N-2];
          k<partial_path_delim[N-1];
          ++k) {
-        printf("%d\t%d\n",
-               partial_path_edges[2*k],
-               partial_path_edges[2*k+1]);
+        printf(
+            "%d\t%d\n",
+            partial_path_edges[2*k],
+            partial_path_edges[2*k+1]
+        );
     }
 
     deallocate_doubles(minlengths);
@@ -77,10 +91,7 @@ void bitonic(double* points, int N) {
 }
 
 double norm(double px, double py, double qx, double qy) {
-    return sqrt(
-        pow(px-qx, 2) +
-        pow(py-qy, 2)
-    );
+    return sqrt(pow(px-qx, 2) + pow(py-qy, 2));
 }
 
 double *allocate_doubles(int m) {
